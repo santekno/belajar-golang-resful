@@ -1,0 +1,284 @@
+{
+   "openapi": "3.0.2",
+   "info": {
+      "title": "Student RESTFul API",
+      "version": "1.0"
+   },
+   "servers": [
+      {
+         "url": "http://localhost:8080"
+      }
+   ],
+   "paths": {
+      "/students": {
+         "get": {
+            "description": "List All Students",
+            "summary": "List All Students",
+            "tags": [
+               "Student API"
+            ],
+            "security": [
+               {
+                  "StudentAuth":[]
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Success get all students",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "type": "object",
+                           "properties": {
+                              "code": {
+                                 "type": "number"
+                              },
+                              "status": {
+                                 "type": "string"
+                              },
+                              "data": {
+                                 "type": "array",
+                                 "items": {
+                                    "$ref": "#/components/schemas/Student"
+                                 }
+                              }
+                           }
+                        }
+                     }
+                  }
+               }
+            }
+         },
+         "post": {
+            "description": "Create new student",
+            "summary": "Create New Students",
+            "tags": [
+               "Student API"
+            ],
+            "security": [
+               {
+                  "StudentAuth":[]
+               }
+            ],
+            "requestBody": {
+               "content": {
+                  "application/json": {
+                     "schema": {
+                        "$ref": "#/components/schemas/CreatOrUpdateStudent"
+                     }
+                  }
+               }
+            },
+            "responses": {
+               "200": {
+                  "description": "Success create new student",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "type": "object",
+                           "properties": {
+                              "code": {
+                                 "type": "number"
+                              },
+                              "status": {
+                                 "type": "string"
+                              },
+                              "data": {
+                                 "type": "array",
+                                 "items": {
+                                    "$ref": "#/components/schemas/Student"
+                                 }
+                              }
+                           }
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/students/{student_id}": {
+         "get": {
+            "description": "Get Single Student",
+            "summary": "Get Single Student by ID",
+            "tags": [
+               "Student API"
+            ],
+            "security": [
+               {
+                  "StudentAuth":[]
+               }
+            ],
+            "parameters": [
+               {
+                  "name": "student_id",
+                  "in": "path",
+                  "description": "Student Id"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Success get student 1",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "type": "object",
+                           "properties": {
+                              "code": {
+                                 "type": "number"
+                              },
+                              "status": {
+                                 "type": "string"
+                              },
+                              "data": {
+                                 "type": "array",
+                                 "items": {
+                                    "$ref": "#/components/schemas/Student"
+                                 }
+                              }
+                           }
+                        }
+                     }
+                  }
+               }
+            }
+         },
+         "post": {
+            "description": "Update Student",
+            "summary": "Update Student by ID",
+            "tags": [
+               "Student API"
+            ],
+            "security": [
+               {
+                  "StudentAuth":[]
+               }
+            ],
+            "parameters": [
+               {
+                  "name": "student_id",
+                  "in": "path",
+                  "description": "Student Id"
+               }
+            ],
+            "requestBody": {
+               "content": {
+                  "application/json": {
+                     "schema": {
+                        "$ref": "#/components/schemas/CreatOrUpdateStudent"
+                     }
+                  }
+               }
+            },
+            "responses": {
+               "200": {
+                  "description": "Success update student 1",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "type": "object",
+                           "properties": {
+                              "code": {
+                                 "type": "number"
+                              },
+                              "status": {
+                                 "type": "string"
+                              },
+                              "data": {
+                                 "type": "array",
+                                 "items": {
+                                    "$ref": "#/components/schemas/Student"
+                                 }
+                              }
+                           }
+                        }
+                     }
+                  }
+               }
+            }
+         },
+         "delete": {
+            "description": "Delete Student",
+            "summary": "Delete Student by ID",
+            "tags": [
+               "Student API"
+            ],
+            "security": [
+               {
+                  "StudentAuth":[]
+               }
+            ],
+            "parameters": [
+               {
+                  "name": "student_id",
+                  "in": "path",
+                  "description": "Student Id"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Success delete student 1",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "type": "object",
+                           "properties": {
+                              "code": {
+                                 "type": "number"
+                              },
+                              "status": {
+                                 "type": "string"
+                              }
+                           }
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      }
+   },
+   "components": {
+      "securitySchemes": {
+         "StudentAuth":{
+            "type": "apiKey",
+            "in": "header",
+            "name": "X-API-Key",
+            "description": "Authentication for Student API"
+         }
+      },
+      "schemas": {
+         "CreatOrUpdateStudent": {
+            "type": "object",
+            "properties": {
+               "nim": {
+                  "type": "string"
+               },
+               "name": {
+                  "type": "string"
+               },
+               "birth_place": {
+                  "type": "string"
+               }
+            }
+         },
+         "Student": {
+            "type": "object",
+            "properties": {
+               "id":{
+                  "type": "number"
+               },
+               "nim": {
+                  "type": "string"
+               },
+               "name": {
+                  "type": "string"
+               },
+               "birth_place": {
+                  "type": "string"
+               }
+            }
+         }
+      }
+   }
+}
