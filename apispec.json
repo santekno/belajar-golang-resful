@@ -1,7 +1,7 @@
 {
    "openapi": "3.0.2",
    "info": {
-      "title": "Student RESTFul API",
+      "title": "Article RESTFul API",
       "version": "1.0"
    },
    "servers": [
@@ -10,21 +10,21 @@
       }
    ],
    "paths": {
-      "/students": {
+      "/articles": {
          "get": {
-            "description": "List All Students",
-            "summary": "List All Students",
+            "description": "List All Articles",
+            "summary": "List All Articles",
             "tags": [
-               "Student API"
+               "Articles API"
             ],
             "security": [
                {
-                  "StudentAuth":[]
+                  "ArticleAuth":[]
                }
             ],
             "responses": {
                "200": {
-                  "description": "Success get all students",
+                  "description": "Success get all articles",
                   "content": {
                      "application/json": {
                         "schema": {
@@ -39,7 +39,7 @@
                               "data": {
                                  "type": "array",
                                  "items": {
-                                    "$ref": "#/components/schemas/Student"
+                                    "$ref": "#/components/schemas/Article"
                                  }
                               }
                            }
@@ -50,28 +50,28 @@
             }
          },
          "post": {
-            "description": "Create new student",
-            "summary": "Create New Students",
+            "description": "Create new article",
+            "summary": "Create New articles",
             "tags": [
-               "Student API"
+               "Article API"
             ],
             "security": [
                {
-                  "StudentAuth":[]
+                  "ArticleAuth":[]
                }
             ],
             "requestBody": {
                "content": {
                   "application/json": {
                      "schema": {
-                        "$ref": "#/components/schemas/CreatOrUpdateStudent"
+                        "$ref": "#/components/schemas/CreatOrUpdateArticle"
                      }
                   }
                }
             },
             "responses": {
                "200": {
-                  "description": "Success create new student",
+                  "description": "Success create new article",
                   "content": {
                      "application/json": {
                         "schema": {
@@ -86,7 +86,7 @@
                               "data": {
                                  "type": "array",
                                  "items": {
-                                    "$ref": "#/components/schemas/Student"
+                                    "$ref": "#/components/schemas/Article"
                                  }
                               }
                            }
@@ -97,28 +97,28 @@
             }
          }
       },
-      "/students/{student_id}": {
+      "/articles/{article_id}": {
          "get": {
-            "description": "Get Single Student",
-            "summary": "Get Single Student by ID",
+            "description": "Get Single Article",
+            "summary": "Get Single Article by ID",
             "tags": [
-               "Student API"
+               "Article API"
             ],
             "security": [
                {
-                  "StudentAuth":[]
+                  "ArticleAuth":[]
                }
             ],
             "parameters": [
                {
-                  "name": "student_id",
+                  "name": "article_id",
                   "in": "path",
-                  "description": "Student Id"
+                  "description": "Article Id"
                }
             ],
             "responses": {
                "200": {
-                  "description": "Success get student 1",
+                  "description": "Success get article 1",
                   "content": {
                      "application/json": {
                         "schema": {
@@ -133,7 +133,7 @@
                               "data": {
                                  "type": "array",
                                  "items": {
-                                    "$ref": "#/components/schemas/Student"
+                                    "$ref": "#/components/schemas/Article"
                                  }
                               }
                            }
@@ -144,35 +144,35 @@
             }
          },
          "post": {
-            "description": "Update Student",
-            "summary": "Update Student by ID",
+            "description": "Update Article",
+            "summary": "Update Article by ID",
             "tags": [
-               "Student API"
+               "Article API"
             ],
             "security": [
                {
-                  "StudentAuth":[]
+                  "ArticleAuth":[]
                }
             ],
             "parameters": [
                {
-                  "name": "student_id",
+                  "name": "article_id",
                   "in": "path",
-                  "description": "Student Id"
+                  "description": "Article Id"
                }
             ],
             "requestBody": {
                "content": {
                   "application/json": {
                      "schema": {
-                        "$ref": "#/components/schemas/CreatOrUpdateStudent"
+                        "$ref": "#/components/schemas/CreatOrUpdateArticle"
                      }
                   }
                }
             },
             "responses": {
                "200": {
-                  "description": "Success update student 1",
+                  "description": "Success update article 1",
                   "content": {
                      "application/json": {
                         "schema": {
@@ -187,7 +187,7 @@
                               "data": {
                                  "type": "array",
                                  "items": {
-                                    "$ref": "#/components/schemas/Student"
+                                    "$ref": "#/components/schemas/Article"
                                  }
                               }
                            }
@@ -198,26 +198,26 @@
             }
          },
          "delete": {
-            "description": "Delete Student",
-            "summary": "Delete Student by ID",
+            "description": "Delete Article",
+            "summary": "Delete Article by ID",
             "tags": [
-               "Student API"
+               "Article API"
             ],
             "security": [
                {
-                  "StudentAuth":[]
+                  "Article":[]
                }
             ],
             "parameters": [
                {
-                  "name": "student_id",
+                  "name": "article_id",
                   "in": "path",
-                  "description": "Student Id"
+                  "description": "Article Id"
                }
             ],
             "responses": {
                "200": {
-                  "description": "Success delete student 1",
+                  "description": "Success delete article 1",
                   "content": {
                      "application/json": {
                         "schema": {
@@ -240,41 +240,41 @@
    },
    "components": {
       "securitySchemes": {
-         "StudentAuth":{
+         "ArticleAuth":{
             "type": "apiKey",
             "in": "header",
             "name": "X-API-Key",
-            "description": "Authentication for Student API"
+            "description": "Authentication for Article API"
          }
       },
       "schemas": {
-         "CreatOrUpdateStudent": {
+         "CreatOrUpdateArticle": {
             "type": "object",
             "properties": {
-               "nim": {
+               "title": {
                   "type": "string"
                },
-               "name": {
-                  "type": "string"
-               },
-               "birth_place": {
+               "content": {
                   "type": "string"
                }
             }
          },
-         "Student": {
+         "Article": {
             "type": "object",
             "properties": {
                "id":{
                   "type": "number"
                },
-               "nim": {
+               "title": {
                   "type": "string"
                },
-               "name": {
+               "content": {
                   "type": "string"
                },
-               "birth_place": {
+               "created_at": {
+                  "type": "string"
+               },
+               "updated_at":{
                   "type": "string"
                }
             }
