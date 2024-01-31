@@ -143,7 +143,7 @@
                }
             }
          },
-         "post": {
+         "put": {
             "description": "Update Article",
             "summary": "Update Article by ID",
             "tags": [

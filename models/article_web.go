@@ -3,15 +3,15 @@ package models
 import "time"
 
 type ArticleCreateRequest struct {
-	Title    string
-	Content  string
+	Title    string `validate:"required,max=160,min=0"`
+	Content  string `validate:"required"`
 	CreateAt time.Time
 }
 
 type ArticleUpdateRequest struct {
-	ID       int64
-	Title    string
-	Content  string
+	ID       int64  `validate:"required"`
+	Title    string `validate:"required,max=160,min=0"`
+	Content  string `validate:"required"`
 	UpdateAt time.Time
 }
 

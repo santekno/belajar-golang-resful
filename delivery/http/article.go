@@ -6,18 +6,21 @@ import (
 	"net/http"
 	"strconv"
 
+	"github.com/go-playground/validator"
 	"github.com/julienschmidt/httprouter"
 	"github.com/santekno/belajar-golang-restful/models"
-	usecase "github.com/santekno/belajar-golang-restful/usecease"
+	"github.com/santekno/belajar-golang-restful/usecase"
 )
 
 type Delivery struct {
 	articleUsecase usecase.ArticleUsecase
+	validate       *validator.Validate
 }
 
 func New(articleUsecase usecase.ArticleUsecase) *Delivery {
 	return &Delivery{
 		articleUsecase: articleUsecase,
+		validate:       validator.New(),
 	}
 }
 
@@ -32,6 +35,12 @@ func (d *Delivery) GetAll(w http.ResponseWriter, r *http.Request, params httprou
 	response.Data = append(response.Data, res...)
 	response.Code = http.StatusOK
 	response.Status = "OK"
+
+	encoder := json.NewEncoder(w)
+	err = encoder.Encode(response)
+	if err != nil {
+		panic(err)
+	}
 }
 
 func (d *Delivery) GetByID(w http.ResponseWriter, r *http.Request, params httprouter.Params) {
@@ -53,6 +62,12 @@ func (d *Delivery) GetByID(w http.ResponseWriter, r *http.Request, params httpro
 	response.Data = append(response.Data, res)
 	response.Code = http.StatusOK
 	response.Status = "OK"
+
+	encoder := json.NewEncoder(w)
+	err = encoder.Encode(response)
+	if err != nil {
+		panic(err)
+	}
 }
 
 func (d *Delivery) Update(w http.ResponseWriter, r *http.Request, params httprouter.Params) {
@@ -75,6 +90,12 @@ func (d *Delivery) Update(w http.ResponseWriter, r *http.Request, params httprou
 
 	request.ID = articleID
 
+	err = d.validate.Struct(request)
+	if err != nil {
+		response.Code = http.StatusBadRequest
+		response.Status = err.Error()
+	}
+
 	res, err := d.articleUsecase.Update(r.Context(), request)
 	if err != nil {
 		response.Code = http.StatusInternalServerError
@@ -84,6 +105,12 @@ func (d *Delivery) Update(w http.ResponseWriter, r *http.Request, params httprou
 	response.Data = append(response.Data, res)
 	response.Code = http.StatusOK
 	response.Status = "OK"
+
+	encoder := json.NewEncoder(w)
+	err = encoder.Encode(response)
+	if err != nil {
+		panic(err)
+	}
 }
 
 func (d *Delivery) Store(w http.ResponseWriter, r *http.Request, params httprouter.Params) {
@@ -92,6 +119,12 @@ func (d *Delivery) Store(w http.ResponseWriter, r *http.Request, params httprout
 
 	decoder := json.NewDecoder(r.Body)
 	err := decoder.Decode(&request)
+	if err != nil {
+		response.Code = http.StatusBadRequest
+		response.Status = err.Error()
+	}
+
+	err = d.validate.Struct(request)
 	if err != nil {
 		response.Code = http.StatusBadRequest
 		response.Status = err.Error()
@@ -106,6 +139,12 @@ func (d *Delivery) Store(w http.ResponseWriter, r *http.Request, params httprout
 	response.Data = append(response.Data, res)
 	response.Code = http.StatusOK
 	response.Status = "OK"
+
+	encoder := json.NewEncoder(w)
+	err = encoder.Encode(response)
+	if err != nil {
+		panic(err)
+	}
 }
 
 func (d *Delivery) Delete(w http.ResponseWriter, r *http.Request, params httprouter.Params) {
@@ -131,4 +170,10 @@ func (d *Delivery) Delete(w http.ResponseWriter, r *http.Request, params httprou
 
 	response.Code = http.StatusOK
 	response.Status = "OK"
+
+	encoder := json.NewEncoder(w)
+	err = encoder.Encode(response)
+	if err != nil {
+		panic(err)
+	}
 }
