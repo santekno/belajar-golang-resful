@@ -68,7 +68,7 @@ func (r *ArticleStore) Update(ctx context.Context, article *models.Article) (*mo
 }
 
 func (r *ArticleStore) Store(ctx context.Context, article *models.Article) (int64, error) {
-	res, err := r.db.ExecContext(ctx, queryInsert, article.Title, article.Content, article.CreateAt)
+	res, err := r.db.ExecContext(ctx, queryInsert, article.Title, article.Content, article.CreateAt, article.UpdateAt)
 	if err != nil {
 		return 0, err
 	}

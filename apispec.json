@@ -6,11 +6,11 @@
    },
    "servers": [
       {
-         "url": "http://localhost:8080"
+         "url": "http://localhost:3000"
       }
    ],
    "paths": {
-      "/articles": {
+      "/api/articles": {
          "get": {
             "description": "List All Articles",
             "summary": "List All Articles",
@@ -53,7 +53,7 @@
             "description": "Create new article",
             "summary": "Create New articles",
             "tags": [
-               "Article API"
+               "Articles API"
             ],
             "security": [
                {
@@ -97,12 +97,12 @@
             }
          }
       },
-      "/articles/{article_id}": {
+      "/api/articles/{article_id}": {
          "get": {
             "description": "Get Single Article",
             "summary": "Get Single Article by ID",
             "tags": [
-               "Article API"
+               "Articles API"
             ],
             "security": [
                {
@@ -147,7 +147,7 @@
             "description": "Update Article",
             "summary": "Update Article by ID",
             "tags": [
-               "Article API"
+               "Articles API"
             ],
             "security": [
                {
@@ -201,7 +201,7 @@
             "description": "Delete Article",
             "summary": "Delete Article by ID",
             "tags": [
-               "Article API"
+               "Articles API"
             ],
             "security": [
                {
@@ -244,7 +244,7 @@
             "type": "apiKey",
             "in": "header",
             "name": "X-API-Key",
-            "description": "Authentication for Article API"
+            "description": "Authentication for Articles API"
          }
       },
       "schemas": {

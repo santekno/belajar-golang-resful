@@ -13,14 +13,15 @@ type Article struct {
 func (m *Article) FromCreateRequest(request ArticleCreateRequest) {
 	m.Title = request.Title
 	m.Content = request.Content
-	m.CreateAt = request.CreateAt
+	m.CreateAt = time.Now()
+	m.UpdateAt = time.Now()
 }
 
 func (m *Article) FromUpdateRequest(request ArticleUpdateRequest) {
 	m.ID = request.ID
 	m.Title = request.Title
 	m.Content = request.Content
-	m.UpdateAt = request.UpdateAt
+	m.UpdateAt = time.Now()
 }
 
 func (m *Article) ToArticleResponse() ArticleResponse {

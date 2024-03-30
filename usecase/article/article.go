@@ -44,7 +44,7 @@ func (u *Usecase) GetByID(ctx context.Context, id int64) (models.ArticleResponse
 }
 
 func (u *Usecase) Update(ctx context.Context, request models.ArticleUpdateRequest) (models.ArticleResponse, error) {
-	var article *models.Article
+	var article = new(models.Article)
 	var response models.ArticleResponse
 
 	if request.ID == 0 {
@@ -55,6 +55,10 @@ func (u *Usecase) Update(ctx context.Context, request models.ArticleUpdateReques
 	article, err := u.articleRepository.GetByID(ctx, request.ID)
 	if err != nil {
 		return response, err
+	}
+
+	if article.ID == 0 {
+		return response, errors.New("data not found")
 	}
 
 	// from request to article struct
@@ -72,7 +76,7 @@ func (u *Usecase) Update(ctx context.Context, request models.ArticleUpdateReques
 }
 
 func (u *Usecase) Store(ctx context.Context, request models.ArticleCreateRequest) (models.ArticleResponse, error) {
-	var article *models.Article
+	var article = new(models.Article)
 	var response models.ArticleResponse
 
 	// convert request to article struct

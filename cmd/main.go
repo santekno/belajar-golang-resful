@@ -3,6 +3,7 @@ package main
 import (
 	"log"
 	"net/http"
+	"os"
 
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/joho/godotenv"
@@ -14,7 +15,12 @@ import (
 )
 
 func main() {
-	err := godotenv.Load(".env")
+	fileEnv := ".env"
+	if os.Getenv("environment") == "development" {
+		fileEnv = "../.env"
+	}
+
+	err := godotenv.Load(fileEnv)
 	if err != nil {
 		log.Fatalf("error loading .env file")
 	}

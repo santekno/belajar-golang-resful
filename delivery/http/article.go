@@ -9,6 +9,7 @@ import (
 	"github.com/go-playground/validator"
 	"github.com/julienschmidt/httprouter"
 	"github.com/santekno/belajar-golang-restful/models"
+	"github.com/santekno/belajar-golang-restful/pkg/util"
 	"github.com/santekno/belajar-golang-restful/usecase"
 )
 
@@ -26,154 +27,195 @@ func New(articleUsecase usecase.ArticleUsecase) *Delivery {
 
 func (d *Delivery) GetAll(w http.ResponseWriter, r *http.Request, params httprouter.Params) {
 	var response models.ArticleListResponse
+	var statusCode int = http.StatusBadRequest
+
+	defer func() {
+		util.Response(w, response, statusCode)
+	}()
+
 	res, err := d.articleUsecase.GetAll(r.Context())
 	if err != nil {
-		response.Code = http.StatusInternalServerError
+		statusCode = http.StatusInternalServerError
+		response.Code = statusCode
 		response.Status = err.Error()
+		return
 	}
 
+	statusCode = http.StatusOK
 	response.Data = append(response.Data, res...)
-	response.Code = http.StatusOK
+	response.Code = statusCode
 	response.Status = "OK"
-
-	encoder := json.NewEncoder(w)
-	err = encoder.Encode(response)
-	if err != nil {
-		panic(err)
-	}
 }
 
 func (d *Delivery) GetByID(w http.ResponseWriter, r *http.Request, params httprouter.Params) {
 	var response models.ArticleListResponse
+	var statusCode int
+
+	defer func() {
+		util.Response(w, response, statusCode)
+	}()
 
 	articleIDString := params.ByName("article_id")
 	articleID, err := strconv.ParseInt(articleIDString, 0, 64)
 	if err != nil {
-		response.Code = http.StatusBadRequest
+		statusCode = http.StatusBadRequest
+		response.Code = statusCode
 		response.Status = err.Error()
+		return
 	}
 
 	res, err := d.articleUsecase.GetByID(r.Context(), articleID)
 	if err != nil {
-		response.Code = http.StatusInternalServerError
+		statusCode = http.StatusInternalServerError
+		response.Code = statusCode
 		response.Status = err.Error()
+		return
 	}
 
+	if res.ID == 0 {
+		statusCode = http.StatusNotFound
+		response.Code = statusCode
+		response.Status = "data not found"
+		return
+	}
+
+	statusCode = http.StatusOK
 	response.Data = append(response.Data, res)
-	response.Code = http.StatusOK
+	response.Code = statusCode
 	response.Status = "OK"
-
-	encoder := json.NewEncoder(w)
-	err = encoder.Encode(response)
-	if err != nil {
-		panic(err)
-	}
 }
 
 func (d *Delivery) Update(w http.ResponseWriter, r *http.Request, params httprouter.Params) {
 	var response models.ArticleListResponse
 	var request models.ArticleUpdateRequest
+	var statusCode = http.StatusBadRequest
+
+	defer func() {
+		util.Response(w, response, statusCode)
+	}()
 
 	articleIDString := params.ByName("article_id")
 	articleID, err := strconv.ParseInt(articleIDString, 0, 64)
 	if err != nil {
-		response.Code = http.StatusBadRequest
+		statusCode = http.StatusBadRequest
+		response.Code = statusCode
 		response.Status = err.Error()
+		return
 	}
 
 	decoder := json.NewDecoder(r.Body)
 	err = decoder.Decode(&request)
 	if err != nil {
-		response.Code = http.StatusBadRequest
+		statusCode = http.StatusBadRequest
+		response.Code = statusCode
 		response.Status = err.Error()
+		return
 	}
 
 	request.ID = articleID
 
 	err = d.validate.Struct(request)
 	if err != nil {
-		response.Code = http.StatusBadRequest
+		statusCode = http.StatusBadRequest
+		response.Code = statusCode
 		response.Status = err.Error()
+		return
 	}
 
 	res, err := d.articleUsecase.Update(r.Context(), request)
 	if err != nil {
-		response.Code = http.StatusInternalServerError
+		statusCode = http.StatusInternalServerError
+		response.Code = statusCode
 		response.Status = err.Error()
+		return
 	}
 
+	statusCode = http.StatusOK
 	response.Data = append(response.Data, res)
-	response.Code = http.StatusOK
+	response.Code = statusCode
 	response.Status = "OK"
-
-	encoder := json.NewEncoder(w)
-	err = encoder.Encode(response)
-	if err != nil {
-		panic(err)
-	}
 }
 
 func (d *Delivery) Store(w http.ResponseWriter, r *http.Request, params httprouter.Params) {
 	var response models.ArticleListResponse
 	var request models.ArticleCreateRequest
+	var statusCode int = http.StatusBadRequest
+
+	defer func() {
+		util.Response(w, response, statusCode)
+	}()
 
 	decoder := json.NewDecoder(r.Body)
 	err := decoder.Decode(&request)
 	if err != nil {
-		response.Code = http.StatusBadRequest
+		statusCode = http.StatusBadRequest
+		response.Code = statusCode
 		response.Status = err.Error()
+		return
 	}
 
 	err = d.validate.Struct(request)
 	if err != nil {
-		response.Code = http.StatusBadRequest
+		statusCode = http.StatusBadRequest
+		response.Code = statusCode
 		response.Status = err.Error()
+		return
 	}
 
 	res, err := d.articleUsecase.Store(r.Context(), request)
 	if err != nil {
-		response.Code = http.StatusInternalServerError
+		statusCode = http.StatusInternalServerError
+		response.Code = statusCode
 		response.Status = err.Error()
+		return
 	}
 
 	response.Data = append(response.Data, res)
-	response.Code = http.StatusOK
+	statusCode = http.StatusOK
+	response.Code = statusCode
 	response.Status = "OK"
-
-	encoder := json.NewEncoder(w)
-	err = encoder.Encode(response)
-	if err != nil {
-		panic(err)
-	}
 }
 
 func (d *Delivery) Delete(w http.ResponseWriter, r *http.Request, params httprouter.Params) {
 	var response models.ArticleListResponse
+	var statusCode int = http.StatusBadRequest
+
+	defer func() {
+		util.Response(w, response, statusCode)
+	}()
 
 	articleIDString := params.ByName("article_id")
 	articleID, err := strconv.ParseInt(articleIDString, 0, 64)
 	if err != nil {
-		response.Code = http.StatusBadRequest
+		statusCode = http.StatusBadRequest
+		response.Code = statusCode
 		response.Status = err.Error()
+		return
+	}
+
+	if articleID == 0 {
+		statusCode = http.StatusBadRequest
+		response.Code = statusCode
+		response.Status = "article_id was not zero"
+		return
 	}
 
 	res, err := d.articleUsecase.Delete(r.Context(), articleID)
 	if err != nil {
-		response.Code = http.StatusInternalServerError
+		statusCode = http.StatusInternalServerError
+		response.Code = statusCode
 		response.Status = err.Error()
+		return
 	}
 
 	if !res {
-		response.Code = http.StatusInternalServerError
+		statusCode = http.StatusInternalServerError
+		response.Code = statusCode
 		response.Status = errors.New("unknown error").Error()
+		return
 	}
 
-	response.Code = http.StatusOK
+	statusCode = http.StatusOK
+	response.Code = statusCode
 	response.Status = "OK"
-
-	encoder := json.NewEncoder(w)
-	err = encoder.Encode(response)
-	if err != nil {
-		panic(err)
-	}
 }
