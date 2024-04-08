@@ -3,8 +3,10 @@ package repository
 import (
 	"context"
 
-	"github.com/santekno/belajar-golang-restful/models"
+	"github.com/santekno/belajar-golang-restful/internal/models"
 )
+
+//go:generate mockery --name=ArticleRepository --filename=repository_mock.go --inpackage
 
 type ArticleRepository interface {
 	GetAll(ctx context.Context) ([]*models.Article, error)

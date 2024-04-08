@@ -31,6 +31,12 @@ Teman-teman bisa juga langsung mempelajari pada repository ini jika ingin langsu
    ```
 5. Sukses, projek sudah berjalan dan bisa kita coba API yang ada pada dokumentasinya.
 
+## Aturan Penamaan Projek
+* Nama folder harus menggunakan `dash` jika lebih dari dua kata. Contoh `middleware-chain`, `util-category` (Kebab case)
+* Nama file golang menggunakan `underscore` jika lebih dari dua kata. Contoh `article_test.go`,`article_data.go` (Snake Case)
+* Nama fungsi harus menggunakan `CamelCase`. Contoh: `GetAll()`, `GetArticleById()`
+* Nama variabel harus menggunakan `CamelCase` dengan huruf pertama kecil. Contoh: `isSuccess`, `dataResult`, `results`
+* Nama constant harus menggunakan `AllCaps` dan jika lebih dari satu kata tambahkan pemisahnya dengan `underscore`. Contoh: `HOSTNAME`, `POSTGRES_HOST`.
 
 ## Contributor
 Maintenance By @santekno

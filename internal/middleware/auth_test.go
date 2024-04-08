@@ -6,12 +6,13 @@ import (
 	"testing"
 
 	"github.com/julienschmidt/httprouter"
+	middleware_chain "github.com/santekno/belajar-golang-restful/pkg/middleware-chain"
 	"github.com/stretchr/testify/assert"
 )
 
 func TestAuthenticationBasic(t *testing.T) {
 	router := httprouter.New()
-	mv := New(
+	mv := middleware_chain.New(
 		AuthenticationBasic,
 	)
 	router.GET("/onlytest", mv.Then(func(w http.ResponseWriter, r *http.Request, p httprouter.Params) {

@@ -4,7 +4,7 @@ import (
 	"net/http"
 
 	"github.com/julienschmidt/httprouter"
-	"github.com/santekno/belajar-golang-restful/models"
+	"github.com/santekno/belajar-golang-restful/internal/models"
 	"github.com/santekno/belajar-golang-restful/pkg/util"
 )
 

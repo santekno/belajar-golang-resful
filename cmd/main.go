@@ -8,11 +8,12 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/joho/godotenv"
 	"github.com/julienschmidt/httprouter"
-	httpHandler "github.com/santekno/belajar-golang-restful/delivery/http"
-	"github.com/santekno/belajar-golang-restful/middleware"
+	httpHandler "github.com/santekno/belajar-golang-restful/internal/delivery/http"
+	"github.com/santekno/belajar-golang-restful/internal/middleware"
+	mysqlRepository "github.com/santekno/belajar-golang-restful/internal/repository/mysql"
+	articleUsecase "github.com/santekno/belajar-golang-restful/internal/usecase/article"
 	"github.com/santekno/belajar-golang-restful/pkg/database"
-	mysqlRepository "github.com/santekno/belajar-golang-restful/repository/mysql"
-	articleUsecase "github.com/santekno/belajar-golang-restful/usecase/article"
+	middleware_chain "github.com/santekno/belajar-golang-restful/pkg/middleware-chain"
 )
 
 func main() {
@@ -26,9 +27,6 @@ func main() {
 		log.Fatalf("error loading .env file")
 	}
 
-	// inisialisasi http router
-	router := httprouter.New()
-
 	// inisialisasi database
 	db := database.New()
 
@@ -38,18 +36,8 @@ func main() {
 	articleUsecase := articleUsecase.New(repository)
 	// inisialisasi handler
 	articleHandler := httpHandler.New(articleUsecase)
-
-	// inisialisasi chain middleware
-	m := middleware.New(
-		middleware.AuthenticationBasic,
-	)
-
-	// entrypoint
-	router.GET("/api/articles", m.Then(articleHandler.GetAll))
-	router.GET("/api/articles/:article_id", m.Then(articleHandler.GetByID))
-	router.POST("/api/articles/", m.Then(articleHandler.Store))
-	router.PUT("/api/articles/:article_id", m.Then(articleHandler.Update))
-	router.DELETE("/api/articles/:article_id", m.Then(articleHandler.Delete))
+	// // inisialisasi new router
+	router := NewRouter(articleHandler)
 
 	server := http.Server{
 		Addr:    "localhost:3000",
@@ -60,4 +48,23 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
+}
+
+func NewRouter(articleHandler *httpHandler.Delivery) *httprouter.Router {
+	// inisialisasi http router
+	router := httprouter.New()
+
+	// inisialisasi chain middleware
+	m := middleware_chain.New(
+		middleware.AuthenticationBasic,
+	)
+
+	// entrypoint
+	router.GET("/api/articles", m.Then(articleHandler.GetAll))
+	router.GET("/api/articles/:article_id", m.Then(articleHandler.GetByID))
+	router.POST("/api/articles/", m.Then(articleHandler.Store))
+	router.PUT("/api/articles/:article_id", m.Then(articleHandler.Update))
+	router.DELETE("/api/articles/:article_id", m.Then(articleHandler.Delete))
+
+	return router
 }

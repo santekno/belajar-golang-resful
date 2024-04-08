@@ -5,7 +5,7 @@ import (
 	"database/sql"
 	"fmt"
 
-	"github.com/santekno/belajar-golang-restful/models"
+	"github.com/santekno/belajar-golang-restful/internal/models"
 )
 
 type ArticleStore struct {
@@ -46,7 +46,7 @@ func (r *ArticleStore) GetByID(ctx context.Context, id int64) (*models.Article, 
 
 	err := r.db.QueryRowContext(ctx, queryGetById, id).Scan(&result.ID, &result.Title, &result.Content, &result.CreateAt, &result.UpdateAt)
 	if err != nil {
-		return &result, nil
+		return &result, err
 	}
 
 	return &result, nil

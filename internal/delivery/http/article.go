@@ -8,9 +8,9 @@ import (
 
 	"github.com/go-playground/validator"
 	"github.com/julienschmidt/httprouter"
-	"github.com/santekno/belajar-golang-restful/models"
+	"github.com/santekno/belajar-golang-restful/internal/models"
+	"github.com/santekno/belajar-golang-restful/internal/usecase"
 	"github.com/santekno/belajar-golang-restful/pkg/util"
-	"github.com/santekno/belajar-golang-restful/usecase"
 )
 
 type Delivery struct {
@@ -49,7 +49,7 @@ func (d *Delivery) GetAll(w http.ResponseWriter, r *http.Request, params httprou
 
 func (d *Delivery) GetByID(w http.ResponseWriter, r *http.Request, params httprouter.Params) {
 	var response models.ArticleListResponse
-	var statusCode int
+	var statusCode int = http.StatusBadRequest
 
 	defer func() {
 		util.Response(w, response, statusCode)
@@ -194,7 +194,7 @@ func (d *Delivery) Delete(w http.ResponseWriter, r *http.Request, params httprou
 	}
 
 	if articleID == 0 {
-		statusCode = http.StatusBadRequest
+		statusCode = http.StatusNotFound
 		response.Code = statusCode
 		response.Status = "article_id was not zero"
 		return

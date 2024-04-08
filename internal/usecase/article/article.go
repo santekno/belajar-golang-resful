@@ -4,8 +4,8 @@ import (
 	"context"
 	"errors"
 
-	"github.com/santekno/belajar-golang-restful/models"
-	repository "github.com/santekno/belajar-golang-restful/repository"
+	"github.com/santekno/belajar-golang-restful/internal/models"
+	repository "github.com/santekno/belajar-golang-restful/internal/repository"
 )
 
 type Usecase struct {
