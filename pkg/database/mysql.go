@@ -9,7 +9,7 @@ import (
 	"github.com/go-sql-driver/mysql"
 )
 
-func New() *sql.DB {
+func New(env string) (*sql.DB, error) {
 	cfg := mysql.Config{
 		User:                 os.Getenv("DATABASE_USER"),
 		Passwd:               os.Getenv("DATABASE_PASS"),
@@ -32,5 +32,5 @@ func New() *sql.DB {
 	}
 
 	fmt.Println("Connected!")
-	return db
+	return db, err
 }
