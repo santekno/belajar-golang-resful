@@ -5,7 +5,7 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"github.com/santekno/belajar-golang-restful/internal/models"
+	"github.com/santekno/learn-golang-restful/internal/models"
 )
 
 func TestResponse(t *testing.T) {

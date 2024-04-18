@@ -5,7 +5,7 @@ import (
 	"database/sql"
 	"fmt"
 
-	"github.com/santekno/belajar-golang-restful/internal/models"
+	"github.com/santekno/learn-golang-restful/internal/models"
 )
 
 type ArticleStore struct {

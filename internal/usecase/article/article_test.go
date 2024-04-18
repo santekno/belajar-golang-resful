@@ -7,8 +7,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/santekno/belajar-golang-restful/internal/models"
-	repository "github.com/santekno/belajar-golang-restful/internal/repository"
+	"github.com/santekno/learn-golang-restful/internal/models"
+	repository "github.com/santekno/learn-golang-restful/internal/repository"
 	"github.com/stretchr/testify/mock"
 )
 

@@ -8,14 +8,14 @@ package wire
 
 import (
 	"github.com/google/wire"
-	http2 "github.com/santekno/belajar-golang-restful/internal/delivery/http"
-	"github.com/santekno/belajar-golang-restful/internal/repository"
-	"github.com/santekno/belajar-golang-restful/internal/repository/mysql"
-	"github.com/santekno/belajar-golang-restful/internal/usecase"
-	"github.com/santekno/belajar-golang-restful/internal/usecase/article"
-	"github.com/santekno/belajar-golang-restful/pkg/database"
-	"github.com/santekno/belajar-golang-restful/pkg/environment"
-	"github.com/santekno/belajar-golang-restful/pkg/router"
+	http2 "github.com/santekno/learn-golang-restful/internal/delivery/http"
+	"github.com/santekno/learn-golang-restful/internal/repository"
+	"github.com/santekno/learn-golang-restful/internal/repository/mysql"
+	"github.com/santekno/learn-golang-restful/internal/usecase"
+	"github.com/santekno/learn-golang-restful/internal/usecase/article"
+	"github.com/santekno/learn-golang-restful/pkg/database"
+	"github.com/santekno/learn-golang-restful/pkg/environment"
+	"github.com/santekno/learn-golang-restful/pkg/router"
 	"net/http"
 )
 

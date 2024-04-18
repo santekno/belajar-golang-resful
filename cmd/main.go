@@ -2,7 +2,7 @@ package main
 
 import (
 	_ "github.com/go-sql-driver/mysql"
-	"github.com/santekno/belajar-golang-restful/pkg/wire"
+	"github.com/santekno/learn-golang-restful/pkg/wire"
 )
 
 func main() {

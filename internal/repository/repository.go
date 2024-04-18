@@ -3,7 +3,7 @@ package repository
 import (
 	"context"
 
-	"github.com/santekno/belajar-golang-restful/internal/models"
+	"github.com/santekno/learn-golang-restful/internal/models"
 )
 
 //go:generate mockery --name=ArticleRepository --filename=repository_mock.go --inpackage

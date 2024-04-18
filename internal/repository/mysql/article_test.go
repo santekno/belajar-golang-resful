@@ -9,7 +9,7 @@ import (
 	"time"
 
 	"github.com/DATA-DOG/go-sqlmock"
-	"github.com/santekno/belajar-golang-restful/internal/models"
+	"github.com/santekno/learn-golang-restful/internal/models"
 	"github.com/stretchr/testify/assert"
 )
 

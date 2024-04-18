@@ -8,7 +8,7 @@ Bagi kalian yang ingin belajar lebih mudah bisa kunjungi website kami [Santekno]
 Teman-teman bisa juga langsung mempelajari pada repository ini jika ingin langsung menjalankan programnya. Tetapi perlu disiapkan beberapa langkahnya seperti:
 1. Clone repository ini dengan perintah
    ```bash
-   git clone git@github.com:santekno/belajar-golang-restful.git
+   git clone git@github.com:santekno/learn-golang-restful.git
    ```
 2. Siapkan database yang dipakai yaitu MySQL, jika teman-teman sudah punya Docker, dari projek ini sudah disediakan juga `docker-compose.yml` untuk membuat MySQL Server menggunakan Docker.
    ```bash

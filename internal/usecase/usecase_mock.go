@@ -5,7 +5,7 @@ package usecase
 import (
 	context "context"
 
-	models "github.com/santekno/belajar-golang-restful/internal/models"
+	models "github.com/santekno/learn-golang-restful/internal/models"
 	mock "github.com/stretchr/testify/mock"
 )
 

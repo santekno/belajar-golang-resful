@@ -1,4 +1,4 @@
-module github.com/santekno/belajar-golang-restful
+module github.com/santekno/learn-golang-restful
 
 go 1.21.1
 

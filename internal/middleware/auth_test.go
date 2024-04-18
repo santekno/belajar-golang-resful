@@ -6,7 +6,7 @@ import (
 	"testing"
 
 	"github.com/julienschmidt/httprouter"
-	middleware_chain "github.com/santekno/belajar-golang-restful/pkg/middleware-chain"
+	middleware_chain "github.com/santekno/learn-golang-restful/pkg/middleware-chain"
 	"github.com/stretchr/testify/assert"
 )
 

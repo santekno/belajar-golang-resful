@@ -4,9 +4,9 @@ import (
 	"net/http"
 
 	"github.com/julienschmidt/httprouter"
-	httpHandler "github.com/santekno/belajar-golang-restful/internal/delivery/http"
-	"github.com/santekno/belajar-golang-restful/internal/middleware"
-	middleware_chain "github.com/santekno/belajar-golang-restful/pkg/middleware-chain"
+	httpHandler "github.com/santekno/learn-golang-restful/internal/delivery/http"
+	"github.com/santekno/learn-golang-restful/internal/middleware"
+	middleware_chain "github.com/santekno/learn-golang-restful/pkg/middleware-chain"
 )
 
 func NewServer(router *httprouter.Router) *http.Server {

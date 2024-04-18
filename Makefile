@@ -1,8 +1,8 @@
 build:
-	go build -o bin/belajar-golang-restful cmd/main.go
+	go build -o bin/learn-golang-restful cmd/main.go
 
 run:
-	go build -o bin/belajar-golang-restful cmd/main.go && ./bin/belajar-golang-restful
+	go build -o bin/learn-golang-restful cmd/main.go && ./bin/learn-golang-restful
 
 install-go-test-coverage:
 	go install github.com/vladopajic/go-test-coverage/v2@latest

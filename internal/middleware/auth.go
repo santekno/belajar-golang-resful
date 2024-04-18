@@ -4,8 +4,8 @@ import (
 	"net/http"
 
 	"github.com/julienschmidt/httprouter"
-	"github.com/santekno/belajar-golang-restful/internal/models"
-	"github.com/santekno/belajar-golang-restful/pkg/util"
+	"github.com/santekno/learn-golang-restful/internal/models"
+	"github.com/santekno/learn-golang-restful/pkg/util"
 )
 
 const (

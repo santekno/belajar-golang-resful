@@ -8,9 +8,9 @@ import (
 
 	"github.com/go-playground/validator"
 	"github.com/julienschmidt/httprouter"
-	"github.com/santekno/belajar-golang-restful/internal/models"
-	"github.com/santekno/belajar-golang-restful/internal/usecase"
-	"github.com/santekno/belajar-golang-restful/pkg/util"
+	"github.com/santekno/learn-golang-restful/internal/models"
+	"github.com/santekno/learn-golang-restful/internal/usecase"
+	"github.com/santekno/learn-golang-restful/pkg/util"
 )
 
 type Delivery struct {

@@ -3,7 +3,7 @@ package usecase
 import (
 	"context"
 
-	"github.com/santekno/belajar-golang-restful/internal/models"
+	"github.com/santekno/learn-golang-restful/internal/models"
 )
 
 //go:generate mockery --name=ArticleUsecase --filename=usecase_mock.go --inpackage
